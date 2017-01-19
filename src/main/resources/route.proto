@@ -1,0 +1,40 @@
+syntax = "proto3";
+option java_package="cn.aiet.example.grpc";
+option java_outer_classname = "RouteGuideProto";
+
+package routeguide;
+
+service Route{
+  rpc getFeature(Point) returns (Feature) {}
+  rpc listFeatures(Rectangle) returns (stream Feature) {}
+  rpc recordRoute(stream Point) returns (RouteSummary) {}
+  rpc routeChat(stream RouteNote) returns (stream RouteNote) {}
+}
+
+message Point {
+  int32 lat = 1;
+  int32 lng = 2;
+}
+
+message Rectangle{
+  Point lt = 1;
+  Point rb = 2;
+}
+
+message Feature {
+  string name = 1;
+  Point loc = 2;
+}
+
+message RouteSummary {
+  int32 point_count = 1;
+  int32 feature_count = 2;
+  int32 distance = 3;
+  int32 elapse = 4;
+}
+
+message RouteNote{
+  Point loc = 1;
+  string msg = 2;
+
+}
